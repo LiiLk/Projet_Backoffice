@@ -2,6 +2,7 @@ import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from mytig.config import baseUrl
+from rest_framework import status
 
 # Create your views here.
 class RedirectionListeDeProduits(APIView):
@@ -25,8 +26,15 @@ class RedirectionDetailProduit(APIView):
 #    def delete(self, request, pk, format=None):
 #        NO DEFITION of delete --> server will return "405 NOT ALLOWED"
 
-
-
+class ProductStockAjour(APIView):
+    def put(self,request, pk, format=None):
+        try:
+            product_data = request.data
+            response = requests.put(baseUrl+f'product/{pk}/', json=product_data)
+            jsondata = response.json()
+            return Response(jsondata, status=status.HTTP_200_OK)
+        except:
+            raise Http404
 from mytig.models import ProduitEnPromotion
 from mytig.serializers import ProduitEnPromotionSerializer
 from django.http import Http404
