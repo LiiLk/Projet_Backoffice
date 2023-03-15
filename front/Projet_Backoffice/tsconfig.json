@@ -1,13 +1,30 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/**/*.ts",
+  "src/**/*.vue"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext", 
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
     "baseUrl": ".",
+    "plugins": [
+      {
+      "name": "@vuedx/typecheck"
+      }
+    ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./*"]
+    },
+    "lib": ["esnext", "dom"],
+    "types": ["vite/client", "vue", "vue-router"]
+    
   },
-
+  
   "references": [
     {
       "path": "./tsconfig.node.json"
